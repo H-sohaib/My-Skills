@@ -9,6 +9,30 @@ Perform a rapid, high-signal, evidence-based code review of a pull request or lo
 
 This skill audits both the **Big Picture (Macro: architectural intent, systemic blast radius, broken callers across the repo)** and the **Diff Quality (Micro: logic bugs, null safety, exception handling, clean code conventions)** directly in standalone mode without slow subagents.
 
+## Required PR Reviewer Quality Gate
+
+Before a PR is created or updated, complete this review workflow and iterate until the verdict is `APPROVED`. Keep merge decisions outside this skill's scope. Apply the following repository-specific checks in addition to the general review hierarchy:
+
+1. **Multi-tenancy and security isolation (blocker)**
+   - Scope organisation-owned queries, filters, resolvers, and mutations to the active organisation.
+   - Validate relational IDs against the active organisation and prevent cross-tenant attachment.
+   - Check object-level access for non-admin users and API keys when enabled, preserving inaccessible existing relations during updates.
+   - Require authorization decorators and registration in the relevant authorization tests for GraphQL mutations.
+   - Require audit logging inside the transaction for mutating actions, including masked API-key attribution where applicable.
+2. **Transaction atomicity and data consistency (blocker)**
+   - Require `transaction.atomic()` around database writes, M2M operations, deletions, and audit logging.
+   - Confirm values needed by signals or audit entries are captured before deletion or mutation.
+3. **Coding conventions and implementation quality**
+   - Prefer the smallest direct change; reject speculative abstractions and excessive defensive machinery.
+   - Do not accept `getattr()` or `hasattr()` where explicit attributes, type narrowing, or protocols are appropriate.
+   - Check resolver query efficiency, especially filtering prefetched relations in child resolvers, and require named constants instead of magic numbers.
+4. **Test fidelity and coverage**
+   - Prefer real database models for database behavior rather than mocks that bypass persistence and authorization.
+   - Require high-value assertions for persistence, relations, audit logs, and GraphQL errors.
+   - Check happy paths, edge cases, cross-tenant isolation, and every changed branch. Use the repository's established test naming convention when one exists.
+
+If any blocker or required quality issue remains, return `CHANGES_REQUESTED`; after corrections, rerun the full review rather than assuming the fix is sufficient.
+
 ---
 
 ## Hard Rules & Principles
