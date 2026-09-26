@@ -228,7 +228,7 @@ Consolidate the results of each scheduled review sweep into a clear, high-densit
 
 ### Run Report Structure
 
-```markdown
+````markdown
 # Scheduled PR Review Run Report - YYYY-MM-DD HH:MM UTC
 
 ## Sweep Summary
@@ -263,16 +263,17 @@ Consolidate the results of each scheduled review sweep into a clear, high-densit
   Querying `Plan` by `id` without filtering on `org=organisation` breaks multi-tenant isolation, allowing cross-tenant plan retrieval if an attacker guesses a valid UUID.
 - **Ready-to-Post PR Comment:**
   > `fetch_plan() accepts organisation but queries Plan by id alone without scoping to the organisation, allowing cross-tenant plan retrieval. Scope the query by adding org=organisation to get() so foreign plan IDs raise MissingPlanError.`
-  > ```suggestion
-  >     return Plan.objects.get(id=plan_id, org=organisation)
-  > ```
+
+  ```suggestion
+      return Plan.objects.get(id=plan_id, org=organisation)
+  ```
 
 ---
 
 ## Skipped Unchanged PRs
 - `Ostorlab/agent_threat_intelligence#88` (SHA `b5c6d7e` unchanged)
 - `Ostorlab/agent_threat_intelligence_stream#104` (SHA `1234abc` unchanged)
-```
+````
 
 ---
 
