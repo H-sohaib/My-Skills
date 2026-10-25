@@ -1,6 +1,7 @@
 ---
 name: article-pr-review
-description: Fast, standalone, evidence-based Pull Request review specialized for articles, technical blog posts, and markdown publications (e.g. Ostorlab/blog). Mandatory for reviewing blog PRs, article diffs, and handling follow-up review prompts focusing on editorial flow, technical accuracy, AEO/SEO, image/asset integrity, or static site generator conventions. Always fetches existing PR comments to eliminate duplicates, focuses 100% on unflagged issues, and reports findings using the mandatory 3-part format: exact PR diff, detailed technical explanation, and ready-to-post GitHub PR comment matching Ostorlab senior editorial and engineering style.
+description: >-
+  Fast, standalone, evidence-based Pull Request review specialized for articles, technical blog posts, and markdown publications (e.g. Ostorlab/blog). Mandatory for reviewing blog PRs, article diffs, and handling follow-up review prompts focusing on editorial flow, technical accuracy, AEO/SEO, image/asset integrity, or static site generator conventions. Always fetches existing PR comments to eliminate duplicates, focuses 100% on unflagged issues, and reports findings using the mandatory 3-part format: exact PR diff, detailed technical explanation, and ready-to-post GitHub PR comment matching Ostorlab senior editorial and engineering style.
 ---
 
 # Technical Article & Blog PR Reviewer (Macro & Micro)
